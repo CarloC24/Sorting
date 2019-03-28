@@ -1,8 +1,9 @@
 # STRETCH: implement Linear Search
 def linear_search(arr, target):
-
   # TO-DO: add missing code
-
+    for arr_item in arr:
+        if arr_item == target:
+            return arr_item
     return -1   # not found
 
 
@@ -16,6 +17,14 @@ def binary_search(arr, target):
     high = len(arr)-1
 
     # TO-DO: add missing code
+    while low <= high:
+        middle = (low + high) // 2
+        if target < arr[middle]:
+            high = middle - 1
+        elif target > arr[middle]:
+            low = middle + 1
+        else:
+            return arr[middle]
 
     return -1  # not found
 
@@ -28,3 +37,21 @@ def binary_search_recursive(arr, target, low, high):
     if len(arr) == 0:
         return -1  # array empty
     # TO-DO: add missing if/else statements, recursive calls
+    if high >= low:
+        # If element is present at the middle itself
+        if arr[middle] == target:
+            return arr[middle]
+
+        # If element is smaller than mid, then it
+        # can only be present in left subarray
+        elif arr[middle] > target:
+            return binary_search_recursive(arr, low, middle-1, target)
+
+        # Else the element can only be present
+        # in right subarray
+        else:
+            return binary_search_recursive(arr, middle + 1, high, target)
+
+    else:
+        # Element is not present in the array
+        return -1
